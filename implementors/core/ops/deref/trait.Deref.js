@@ -1,0 +1,11 @@
+(function() {var implementors = {};
+implementors["ejdb"] = ["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/ops/deref/trait.Deref.html\" title=\"trait core::ops::deref::Deref\">Deref</a> for <a class=\"struct\" href=\"ejdb/query/struct.QueryHints.html\" title=\"struct ejdb::query::QueryHints\">QueryHints</a>","impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/ops/deref/trait.Deref.html\" title=\"trait core::ops::deref::Deref\">Deref</a> for <a class=\"struct\" href=\"ejdb/query/struct.Query.html\" title=\"struct ejdb::query::Query\">Query</a>","impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/ops/deref/trait.Deref.html\" title=\"trait core::ops::deref::Deref\">Deref</a> for <a class=\"struct\" href=\"ejdb/meta/struct.DatabaseMetadata.html\" title=\"struct ejdb::meta::DatabaseMetadata\">DatabaseMetadata</a>","impl&lt;'a&gt; <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/ops/deref/trait.Deref.html\" title=\"trait core::ops::deref::Deref\">Deref</a> for <a class=\"struct\" href=\"ejdb/meta/struct.CollectionMetadata.html\" title=\"struct ejdb::meta::CollectionMetadata\">CollectionMetadata</a>&lt;'a&gt;","impl&lt;'a&gt; <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/ops/deref/trait.Deref.html\" title=\"trait core::ops::deref::Deref\">Deref</a> for <a class=\"struct\" href=\"ejdb/meta/struct.IndexMetadata.html\" title=\"struct ejdb::meta::IndexMetadata\">IndexMetadata</a>&lt;'a&gt;",];
+implementors["serde"] = ["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/ops/deref/trait.Deref.html\" title=\"trait core::ops::deref::Deref\">Deref</a> for <a class=\"struct\" href=\"serde/bytes/struct.ByteBuf.html\" title=\"struct serde::bytes::ByteBuf\">ByteBuf</a>","impl&lt;'a&gt; <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/ops/deref/trait.Deref.html\" title=\"trait core::ops::deref::Deref\">Deref</a> for <a class=\"struct\" href=\"serde/bytes/struct.Bytes.html\" title=\"struct serde::bytes::Bytes\">Bytes</a>&lt;'a&gt;",];
+
+            if (window.register_implementors) {
+                window.register_implementors(implementors);
+            } else {
+                window.pending_implementors = implementors;
+            }
+        
+})()

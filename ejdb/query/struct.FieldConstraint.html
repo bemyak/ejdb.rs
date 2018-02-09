@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `FieldConstraint` struct in crate `ejdb`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, FieldConstraint">
+
+    <title>ejdb::query::FieldConstraint - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc struct">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        <div class="sidebar-menu">&#9776;</div>
+        
+        <p class='location'>Struct FieldConstraint</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#methods">Methods</a><div class="sidebar-links"><a href="#method.field">field</a><a href="#method.eq">eq</a><a href="#method.begin">begin</a><a href="#method.between">between</a><a href="#method.gt">gt</a><a href="#method.gte">gte</a><a href="#method.lt">lt</a><a href="#method.lte">lte</a><a href="#method.exists">exists</a><a href="#method.elem_match">elem_match</a><a href="#method.contained_in">contained_in</a><a href="#method.not_contained_in">not_contained_in</a><a href="#method.case_insensitive">case_insensitive</a><a href="#method.not">not</a><a href="#method.str_and">str_and</a><a href="#method.str_or">str_or</a></div></div><p class='location'><a href='../index.html'>ejdb</a>::<wbr><a href='index.html'>query</a></p><script>window.sidebarCurrent = {name: 'FieldConstraint', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>ejdb</a>::<wbr><a href='index.html'>query</a>::<wbr><a class="struct" href=''>FieldConstraint</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../src/ejdb/database/query.rs.html#537' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct FieldConstraint(_, _);</pre><div class='docblock'><p>A transient builder for adding field-based query constraints.</p>
+
+<p>Instances of this structure are returned by <code>Query::field()</code> and <code>FieldConstraint::field()</code>
+methods.</p>
+</div>
+                    <h2 id='methods' class='small-section-header'>
+                      Methods<a href='#methods' class='anchor'></a>
+                    </h2>
+                <h3 id='impl' class='impl'><span class='in-band'><code>impl <a class="struct" href="../../ejdb/query/struct.FieldConstraint.html" title="struct ejdb::query::FieldConstraint">FieldConstraint</a></code><a href='#impl' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#539-696' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.field' class="method"><span id='field.v' class='invisible'><code>pub fn <a href='#method.field' class='fnname'>field</a>&lt;S:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;&gt;(self, name: S) -&gt; <a class="struct" href="../../ejdb/query/struct.FieldConstraint.html" title="struct ejdb::query::FieldConstraint">FieldConstraint</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#558-560' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Returns a constraint builder for a deeper field.</p>
+</div><h4 id='method.eq' class="method"><span id='eq.v' class='invisible'><code>pub fn <a href='#method.eq' class='fnname'>eq</a>&lt;V:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="enum" href="../../ejdb/bson/enum.Bson.html" title="enum ejdb::bson::Bson">Bson</a>&gt;&gt;(self, value: V) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#563-565' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Adds an equality constraint for this field and <code>value</code>.</p>
+</div><h4 id='method.begin' class="method"><span id='begin.v' class='invisible'><code>pub fn <a href='#method.begin' class='fnname'>begin</a>&lt;S:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;&gt;(self, value: S) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#570-572' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Adds a <code>$begin</code> constraint for this field.</p>
+
+<p>The value of this field must start with <code>value</code>. The field type should be string.</p>
+</div><h4 id='method.between' class="method"><span id='between.v' class='invisible'><code>pub fn <a href='#method.between' class='fnname'>between</a>&lt;N1:&nbsp;BsonNumber, N2:&nbsp;BsonNumber&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;left: N1, <br>&nbsp;&nbsp;&nbsp;&nbsp;right: N2<br>) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#578-580' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Adds a <code>$between</code> constraint for this field.</p>
+
+<p>The value of this field must be greater than or equal to <code>left</code> and less than or
+equal to <code>right</code>. The field type should be numeric.</p>
+</div><h4 id='method.gt' class="method"><span id='gt.v' class='invisible'><code>pub fn <a href='#method.gt' class='fnname'>gt</a>&lt;N:&nbsp;BsonNumber&gt;(self, value: N) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#586-588' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Adds a <code>$gt</code> constraint for this field.</p>
+
+<p>The value of this field must be strictly greater than <code>value</code>. The field type
+should be numeric.</p>
+</div><h4 id='method.gte' class="method"><span id='gte.v' class='invisible'><code>pub fn <a href='#method.gte' class='fnname'>gte</a>&lt;N:&nbsp;BsonNumber&gt;(self, value: N) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#594-596' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Adds a <code>$gte</code> constraint for this field.</p>
+
+<p>The value of this field must be greater than or equal to <code>value</code>. The field type
+should be numeric.</p>
+</div><h4 id='method.lt' class="method"><span id='lt.v' class='invisible'><code>pub fn <a href='#method.lt' class='fnname'>lt</a>&lt;N:&nbsp;BsonNumber&gt;(self, value: N) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#602-604' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Adds an <code>$lt</code> constraint for this field.</p>
+
+<p>The value of this field must be strictly less than <code>value</code>. The field type
+should be numeric.</p>
+</div><h4 id='method.lte' class="method"><span id='lte.v' class='invisible'><code>pub fn <a href='#method.lte' class='fnname'>lte</a>&lt;N:&nbsp;BsonNumber&gt;(self, value: N) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#610-612' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Adds an <code>$lte</code> constraint for this field.</p>
+
+<p>The value of this field must be less than or equal to <code>value</code>. The field type
+should be numeric.</p>
+</div><h4 id='method.exists' class="method"><span id='exists.v' class='invisible'><code>pub fn <a href='#method.exists' class='fnname'>exists</a>(self, exists: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#617-619' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Adds an <code>$exists</code> constraint for this field.</p>
+
+<p>The field must exist if <code>exists</code> is <code>true</code>, the opposite otherwise.</p>
+</div><h4 id='method.elem_match' class="method"><span id='elem_match.v' class='invisible'><code>pub fn <a href='#method.elem_match' class='fnname'>elem_match</a>&lt;Q:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="type" href="../../ejdb/bson/type.Document.html" title="type ejdb::bson::Document">Document</a>&gt;&gt;(self, query: Q) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#625-627' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Adds an <code>$elemMatch</code> constraint for this field.</p>
+
+<p>Any element of the array contained in this field must match <code>query</code>. The query argument
+is a regular EJDB query; you can pass another <code>Query</code> object to it.</p>
+</div><h4 id='method.contained_in' class="method"><span id='contained_in.v' class='invisible'><code>pub fn <a href='#method.contained_in' class='fnname'>contained_in</a>&lt;I&gt;(self, values: I) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a> <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;I: <a class="trait" href="https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html" title="trait core::iter::traits::IntoIterator">IntoIterator</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;I::<a class="type" href="https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html#associatedtype.Item" title="type core::iter::traits::IntoIterator::Item">Item</a>: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="enum" href="../../ejdb/bson/enum.Bson.html" title="enum ejdb::bson::Bson">Bson</a>&gt;,&nbsp;</span></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#632-636' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Adds an <code>$in</code> constraint for this field.</p>
+
+<p>The value of this field must be equal to one of the values yielded by <code>values</code>.</p>
+</div><h4 id='method.not_contained_in' class="method"><span id='not_contained_in.v' class='invisible'><code>pub fn <a href='#method.not_contained_in' class='fnname'>not_contained_in</a>&lt;I&gt;(self, values: I) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a> <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;I: <a class="trait" href="https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html" title="trait core::iter::traits::IntoIterator">IntoIterator</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;I::<a class="type" href="https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html#associatedtype.Item" title="type core::iter::traits::IntoIterator::Item">Item</a>: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="enum" href="../../ejdb/bson/enum.Bson.html" title="enum ejdb::bson::Bson">Bson</a>&gt;,&nbsp;</span></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#641-645' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Adds an <code>$nin</code> constraint for this field.</p>
+
+<p>The value of this field must not be equal to any of the values yielded by <code>values</code>.</p>
+</div><h4 id='method.case_insensitive' class="method"><span id='case_insensitive.v' class='invisible'><code>pub fn <a href='#method.case_insensitive' class='fnname'>case_insensitive</a>(self) -&gt; <a class="struct" href="../../ejdb/query/struct.FieldConstraint.html" title="struct ejdb::query::FieldConstraint">FieldConstraint</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#651-653' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Adds a <code>$icase</code> constraint for this field.</p>
+
+<p>Makes all further constraints for this field case insensitive with regard to string
+values.</p>
+</div><h4 id='method.not' class="method"><span id='not.v' class='invisible'><code>pub fn <a href='#method.not' class='fnname'>not</a>(self) -&gt; <a class="struct" href="../../ejdb/query/struct.FieldConstraint.html" title="struct ejdb::query::FieldConstraint">FieldConstraint</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#659-661' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Adds a <code>$not</code> constraint for this field.</p>
+
+<p>Inverts the further query, making only those elements which do NOT satisfy the
+following constraints to match.</p>
+</div><h4 id='method.str_and' class="method"><span id='str_and.v' class='invisible'><code>pub fn <a href='#method.str_and' class='fnname'>str_and</a>&lt;I&gt;(self, values: I) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a> <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;I: <a class="trait" href="https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html" title="trait core::iter::traits::IntoIterator">IntoIterator</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;I::<a class="type" href="https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html#associatedtype.Item" title="type core::iter::traits::IntoIterator::Item">Item</a>: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,&nbsp;</span></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#669-678' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Adds an <code>$strand</code> constraint for this field.</p>
+
+<ol>
+<li>If this field holds an array of strings, <code>$strand</code> returns those records whose
+array contains all elements from <code>values</code>.</li>
+<li>If this field holds a string, it is first split into an array by space <code>&#39; &#39;</code> or comma
+<code>&#39;,&#39;</code> characters, and the resulting array is queried like in 1.</li>
+</ol>
+</div><h4 id='method.str_or' class="method"><span id='str_or.v' class='invisible'><code>pub fn <a href='#method.str_or' class='fnname'>str_or</a>&lt;I&gt;(self, values: I) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a> <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;I: <a class="trait" href="https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html" title="trait core::iter::traits::IntoIterator">IntoIterator</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;I::<a class="type" href="https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html#associatedtype.Item" title="type core::iter::traits::IntoIterator::Item">Item</a>: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,&nbsp;</span></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#686-695' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Adds an <code>$stror</code> constraint for this field.</p>
+
+<ol>
+<li>If this field holds an array of strings, <code>$stror</code> returns those records whose
+array contains at least one element from <code>values</code>.</li>
+<li>If this field holds a string, it is first split into an array by space <code>&#39; &#39;</code> or comma
+<code>&#39;,&#39;</code> characters, and the resulting array is queried like in 1.</li>
+</ol>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>↑</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>↓</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt style="width:31px;">+ / -</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "ejdb";
+    </script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

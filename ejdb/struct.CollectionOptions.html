@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `CollectionOptions` struct in crate `ejdb`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, CollectionOptions">
+
+    <title>ejdb::CollectionOptions - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc struct">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        <div class="sidebar-menu">&#9776;</div>
+        
+        <p class='location'>Struct CollectionOptions</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.large">large</a><a href="#structfield.compressed">compressed</a><a href="#structfield.records">records</a><a href="#structfield.cached_records">cached_records</a></div><a class="sidebar-title" href="#methods">Methods</a><div class="sidebar-links"><a href="#method.large">large</a><a href="#method.compressed">compressed</a><a href="#method.records">records</a><a href="#method.cached_records">cached_records</a><a href="#method.get_or_create">get_or_create</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Clone">Clone</a><a href="#impl-Eq">Eq</a><a href="#impl-PartialEq">PartialEq</a><a href="#impl-Debug">Debug</a><a href="#impl-Default">Default</a></div></div><p class='location'><a href='index.html'>ejdb</a></p><script>window.sidebarCurrent = {name: 'CollectionOptions', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>ejdb</a>::<wbr><a class="struct" href=''>CollectionOptions</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../src/ejdb/database/mod.rs.html#335-344' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct CollectionOptions {
+    pub large: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
+    pub compressed: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
+    pub records: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>,
+    pub cached_records: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
+}</pre><div class='docblock'><p>Represents a set of options of an EJDB collection.</p>
+
+<p>Used when new collections are created. It is not possible to change options of a created
+collection.</p>
+
+<p>This is a builder object, so you can chain method calls to set various options. Finally,
+you can create a collection with these options with <code>get_or_create()</code> method.</p>
+
+<h1 id='example' class='section-header'><a href='#example'>Example</a></h1>
+<pre class="rust rust-example-rendered">
+<span class="kw">let</span> <span class="ident">options</span> <span class="op">=</span> <span class="ident">CollectionOptions</span>::<span class="ident">default</span>()
+    .<span class="ident">large</span>(<span class="bool-val">true</span>)
+    .<span class="ident">compressed</span>(<span class="bool-val">true</span>)
+    .<span class="ident">records</span>(<span class="number">1_024_000</span>)
+    .<span class="ident">cached_records</span>(<span class="number">1024</span>);</pre>
+</div><h2 id='fields' class='fields small-section-header'>
+                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.large" class="structfield small-section-header">
+                           <a href="#structfield.large" class="anchor field"></a>
+                           <span id="large.v" class='invisible'>
+                           <code>large: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
+                           </span></span><div class='docblock'><p>Make the collection &quot;large&quot;, i.e. able to hold more than 2GB of data. Default is false.</p>
+</div><span id="structfield.compressed" class="structfield small-section-header">
+                           <a href="#structfield.compressed" class="anchor field"></a>
+                           <span id="compressed.v" class='invisible'>
+                           <code>compressed: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code>
+                           </span></span><div class='docblock'><p>Compress records in the collection with DEFLATE. Default is false.</p>
+</div><span id="structfield.records" class="structfield small-section-header">
+                           <a href="#structfield.records" class="anchor field"></a>
+                           <span id="records.v" class='invisible'>
+                           <code>records: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a></code>
+                           </span></span><div class='docblock'><p>Expected number of records in the collection. Default is 128 000.</p>
+</div><span id="structfield.cached_records" class="structfield small-section-header">
+                           <a href="#structfield.cached_records" class="anchor field"></a>
+                           <span id="cached_records.v" class='invisible'>
+                           <code>cached_records: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code>
+                           </span></span><div class='docblock'><p>Maximum number of records cached in memory. Default is 0.</p>
+</div>
+                    <h2 id='methods' class='small-section-header'>
+                      Methods<a href='#methods' class='anchor'></a>
+                    </h2>
+                <h3 id='impl' class='impl'><span class='in-band'><code>impl <a class="struct" href="../ejdb/struct.CollectionOptions.html" title="struct ejdb::CollectionOptions">CollectionOptions</a></code><a href='#impl' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/ejdb/database/mod.rs.html#346-390' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.large' class="method"><span id='large.v-1' class='invisible'><code>pub fn <a href='#method.large' class='fnname'>large</a>(self, large: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <a class="struct" href="../ejdb/struct.CollectionOptions.html" title="struct ejdb::CollectionOptions">CollectionOptions</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/ejdb/database/mod.rs.html#347-350' title='goto source code'>[src]</a></span></h4>
+<h4 id='method.compressed' class="method"><span id='compressed.v-1' class='invisible'><code>pub fn <a href='#method.compressed' class='fnname'>compressed</a>(self, compressed: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <a class="struct" href="../ejdb/struct.CollectionOptions.html" title="struct ejdb::CollectionOptions">CollectionOptions</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/ejdb/database/mod.rs.html#352-355' title='goto source code'>[src]</a></span></h4>
+<h4 id='method.records' class="method"><span id='records.v-1' class='invisible'><code>pub fn <a href='#method.records' class='fnname'>records</a>(self, records: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>) -&gt; <a class="struct" href="../ejdb/struct.CollectionOptions.html" title="struct ejdb::CollectionOptions">CollectionOptions</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/ejdb/database/mod.rs.html#357-360' title='goto source code'>[src]</a></span></h4>
+<h4 id='method.cached_records' class="method"><span id='cached_records.v-1' class='invisible'><code>pub fn <a href='#method.cached_records' class='fnname'>cached_records</a>(self, cached_records: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="struct" href="../ejdb/struct.CollectionOptions.html" title="struct ejdb::CollectionOptions">CollectionOptions</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/ejdb/database/mod.rs.html#362-365' title='goto source code'>[src]</a></span></h4>
+<h4 id='method.get_or_create' class="method"><span id='get_or_create.v' class='invisible'><code>pub fn <a href='#method.get_or_create' class='fnname'>get_or_create</a>&lt;S:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>&gt;&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;db: &amp;<a class="struct" href="../ejdb/struct.Database.html" title="struct ejdb::Database">Database</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;name: S<br>) -&gt; <a class="type" href="../ejdb/types/type.Result.html" title="type ejdb::types::Result">Result</a>&lt;<a class="struct" href="../ejdb/struct.Collection.html" title="struct ejdb::Collection">Collection</a>&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/ejdb/database/mod.rs.html#387-389' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Invokes <code>db.collection_with_options(name, options)</code> with this object as an argument.</p>
+
+<p>This is a convenience method which allows setting options and creating a collection
+in one go. Remember that if collection with the specified name already exists,
+it will be returned and options will be ignored.</p>
+
+<p><code>name</code> argument can be of any type which is convertible to a vector of bytes, like
+string or byte slice.</p>
+
+<h1 id='example-1' class='section-header'><a href='#example-1'>Example</a></h1>
+<pre class="rust rust-example-rendered">
+<span class="kw">let</span> <span class="ident">db</span> <span class="op">=</span> <span class="ident">Database</span>::<span class="ident">open</span>(<span class="string">&quot;/path/to/db&quot;</span>).<span class="ident">unwrap</span>();
+<span class="kw">let</span> <span class="ident">coll</span> <span class="op">=</span> <span class="ident">CollectionOptions</span>::<span class="ident">default</span>()
+    .<span class="ident">large</span>(<span class="bool-val">true</span>).<span class="ident">compressed</span>(<span class="bool-val">true</span>)
+    .<span class="ident">records</span>(<span class="number">1_024_000</span>).<span class="ident">cached_records</span>(<span class="number">1024</span>)
+    .<span class="ident">get_or_create</span>(<span class="kw-2">&amp;</span><span class="ident">db</span>, <span class="string">&quot;new_collection&quot;</span>).<span class="ident">unwrap</span>();
+<span class="comment">// work with the collection</span></pre>
+</div></div>
+            <h2 id='implementations' class='small-section-header'>
+              Trait Implementations<a href='#implementations' class='anchor'></a>
+            </h2>
+        <h3 id='impl-Clone' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a> for <a class="struct" href="../ejdb/struct.CollectionOptions.html" title="struct ejdb::CollectionOptions">CollectionOptions</a></code><a href='#impl-Clone' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/ejdb/database/mod.rs.html#334' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class="method"><span id='clone.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class="struct" href="../ejdb/struct.CollectionOptions.html" title="struct ejdb::CollectionOptions">CollectionOptions</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/ejdb/database/mod.rs.html#334' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
+</div><h4 id='method.clone_from' class="method"><span id='clone_from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self)</code></span><span class='out-of-band'><div class='ghost'></div><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div><a class='srclink' href='https://doc.rust-lang.org/nightly/src/core/clone.rs.html#112-114' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
+</div></div><h3 id='impl-Eq' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/cmp/trait.Eq.html" title="trait core::cmp::Eq">Eq</a> for <a class="struct" href="../ejdb/struct.CollectionOptions.html" title="struct ejdb::CollectionOptions">CollectionOptions</a></code><a href='#impl-Eq' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/ejdb/database/mod.rs.html#334' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'></div><h3 id='impl-PartialEq' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html" title="trait core::cmp::PartialEq">PartialEq</a> for <a class="struct" href="../ejdb/struct.CollectionOptions.html" title="struct ejdb::CollectionOptions">CollectionOptions</a></code><a href='#impl-PartialEq' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/ejdb/database/mod.rs.html#334' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.eq' class="method"><span id='eq.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq' class='fnname'>eq</a>(&amp;self, __arg_0: &amp;<a class="struct" href="../ejdb/struct.CollectionOptions.html" title="struct ejdb::CollectionOptions">CollectionOptions</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/ejdb/database/mod.rs.html#334' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>This method tests for <code>self</code> and <code>other</code> values to be equal, and is used by <code>==</code>. <a href="https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq">Read more</a></p>
+</div><h4 id='method.ne' class="method"><span id='ne.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.ne' class='fnname'>ne</a>(&amp;self, __arg_0: &amp;<a class="struct" href="../ejdb/struct.CollectionOptions.html" title="struct ejdb::CollectionOptions">CollectionOptions</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/ejdb/database/mod.rs.html#334' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>This method tests for <code>!=</code>.</p>
+</div></div><h3 id='impl-Debug' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html" title="trait core::fmt::Debug">Debug</a> for <a class="struct" href="../ejdb/struct.CollectionOptions.html" title="struct ejdb::CollectionOptions">CollectionOptions</a></code><a href='#impl-Debug' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/ejdb/database/mod.rs.html#334' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class="method"><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html" title="struct core::fmt::Formatter">Formatter</a>) -&gt; <a class="type" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html" title="type core::fmt::Result">Result</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/ejdb/database/mod.rs.html#334' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter. <a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt">Read more</a></p>
+</div></div><h3 id='impl-Default' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html" title="trait core::default::Default">Default</a> for <a class="struct" href="../ejdb/struct.CollectionOptions.html" title="struct ejdb::CollectionOptions">CollectionOptions</a></code><a href='#impl-Default' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/ejdb/database/mod.rs.html#392-401' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.default' class="method"><span id='default.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default' class='fnname'>default</a>() -&gt; <a class="struct" href="../ejdb/struct.CollectionOptions.html" title="struct ejdb::CollectionOptions">CollectionOptions</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/ejdb/database/mod.rs.html#393-400' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Returns the &quot;default value&quot; for a type. <a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default">Read more</a></p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>↑</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>↓</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt style="width:31px;">+ / -</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "ejdb";
+    </script>
+    <script src="../main.js"></script>
+    <script defer src="../search-index.js"></script>
+</body>
+</html>

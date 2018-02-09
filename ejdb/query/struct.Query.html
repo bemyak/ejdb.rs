@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Query` struct in crate `ejdb`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Query">
+
+    <title>ejdb::query::Query - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc struct">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        <div class="sidebar-menu">&#9776;</div>
+        
+        <p class='location'>Struct Query</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#methods">Methods</a><div class="sidebar-links"><a href="#method.new">new</a><a href="#method.and">and</a><a href="#method.or">or</a><a href="#method.id">id</a><a href="#method.field">field</a><a href="#method.join">join</a><a href="#method.add_to_set">add_to_set</a><a href="#method.add_to_set_all">add_to_set_all</a><a href="#method.unset">unset</a><a href="#method.inc">inc</a><a href="#method.drop_all">drop_all</a><a href="#method.set">set</a><a href="#method.set_many">set_many</a><a href="#method.upsert">upsert</a><a href="#method.upsert_many">upsert_many</a><a href="#method.pull">pull</a><a href="#method.pull_all">pull_all</a><a href="#method.push">push</a><a href="#method.push_all">push_all</a><a href="#method.rename">rename</a><a href="#method.slice">slice</a><a href="#method.slice_with_offset">slice_with_offset</a><a href="#method.into_bson">into_bson</a><a href="#method.as_bson">as_bson</a><a href="#method.as_bson_mut">as_bson_mut</a></div><a class="sidebar-title" href="#deref-methods">Methods from Deref&lt;Target=Document&gt;</a><div class="sidebar-links"></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Clone">Clone</a><a href="#impl-PartialEq">PartialEq</a><a href="#impl-Debug">Debug</a><a href="#impl-From%3CDocument%3E">From&lt;Document&gt;</a><a href="#impl-Into%3CDocument%3E">Into&lt;Document&gt;</a><a href="#impl-Deref">Deref</a><a href="#impl-DerefMut">DerefMut</a></div></div><p class='location'><a href='../index.html'>ejdb</a>::<wbr><a href='index.html'>query</a></p><script>window.sidebarCurrent = {name: 'Query', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>ejdb</a>::<wbr><a href='index.html'>query</a>::<wbr><a class="struct" href=''>Query</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../src/ejdb/database/query.rs.html#240-242' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Query { /* fields omitted */ }</pre><div class='docblock'><p>An EJDB query.</p>
+
+<p>This structure represents both a find query and an update query, because both kinds of
+queries are executed in the same way.</p>
+
+<p>A query internally is a BSON document of a <a href="http://ejdb.org/doc/ql/ql.html">certain format</a>, very similar to
+MongoDB queries. This structure provides convenience methods to build such a document.
+Additionally, a query may have hints, i.e. non-data parameters affecting its behavior.
+These parameters are encapsulated in the <code>QueryHints</code> structure and are passed to the
+<code>Collection::query()</code> method separately.</p>
+
+<p>This structure implements <code>Deref&lt;Target=bson::Document&gt;</code> and <code>DerefMut</code>, and it also
+has <code>as_bson()</code>/<code>as_bson_mut()</code>/<code>into_bson()</code> methods and
+<code>Into&lt;bson::Document&gt;</code>/<code>From&lt;bson::Document&gt;</code> implementations, so it is possible to
+work with the query as with a regular BSON document. Note, however, that an invalid
+query will result in an error when it is executed, so it is recommended to use the
+builder API to construct queries.</p>
+
+<p>Most of the building methods here are as generic as possible; e.g. they take <code>Into&lt;String&gt;</code>
+instead of <code>&amp;str</code> or <code>String</code>; same with iterable objects. This is done for maximum
+flexibility - these methods will consume almost anything which is sensible to pass to them.</p>
+</div>
+                    <h2 id='methods' class='small-section-header'>
+                      Methods<a href='#methods' class='anchor'></a>
+                    </h2>
+                <h3 id='impl' class='impl'><span class='in-band'><code>impl <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code><a href='#impl' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#244-500' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class="method"><span id='new.v' class='invisible'><code>pub fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#249-253' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Creates a new empty query with empty hints.</p>
+
+<p>This method can be a starting point for building a query; see <code>Q</code> struct, however.</p>
+</div><h4 id='method.and' class="method"><span id='and.v' class='invisible'><code>pub fn <a href='#method.and' class='fnname'>and</a>&lt;I&gt;(self, queries: I) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a> <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;I: <a class="trait" href="https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html" title="trait core::iter::traits::IntoIterator">IntoIterator</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;I::<a class="type" href="https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html#associatedtype.Item" title="type core::iter::traits::IntoIterator::Item">Item</a>: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="type" href="../../ejdb/bson/type.Document.html" title="type ejdb::bson::Document">Document</a>&gt;,&nbsp;</span></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#258-266' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Builds <code>$and</code> query.</p>
+
+<p>Selects all records which satisfy all of the provided queries simultaneously.</p>
+</div><h4 id='method.or' class="method"><span id='or.v' class='invisible'><code>pub fn <a href='#method.or' class='fnname'>or</a>&lt;I&gt;(self, queries: I) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a> <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;I: <a class="trait" href="https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html" title="trait core::iter::traits::IntoIterator">IntoIterator</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;I::<a class="type" href="https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html#associatedtype.Item" title="type core::iter::traits::IntoIterator::Item">Item</a>: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="type" href="../../ejdb/bson/type.Document.html" title="type ejdb::bson::Document">Document</a>&gt;,&nbsp;</span></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#271-279' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Builds <code>$or</code> query.</p>
+
+<p>Selects all records which satisfy at least one of the provided queries.</p>
+</div><h4 id='method.id' class="method"><span id='id.v' class='invisible'><code>pub fn <a href='#method.id' class='fnname'>id</a>&lt;V:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="enum" href="../../ejdb/bson/enum.Bson.html" title="enum ejdb::bson::Bson">Bson</a>&gt;&gt;(self, value: V) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#285-287' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Sets equality constraint for <code>_id</code> field.</p>
+
+<p>This is just a shortcut for <code>query.field(&quot;_id&quot;).eq(value)</code>.</p>
+</div><h4 id='method.field' class="method"><span id='field.v' class='invisible'><code>pub fn <a href='#method.field' class='fnname'>field</a>&lt;S:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;&gt;(self, name: S) -&gt; <a class="struct" href="../../ejdb/query/struct.FieldConstraint.html" title="struct ejdb::query::FieldConstraint">FieldConstraint</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#294-296' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Returns a builder object for a field constraint.</p>
+
+<p>This is the main method to set query constraints. Usually a query contains one or
+more such constraints.</p>
+</div><h4 id='method.join' class="method"><span id='join.v' class='invisible'><code>pub fn <a href='#method.join' class='fnname'>join</a>&lt;S:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;, C:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;&gt;(self, key: S, coll: C) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#301-303' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Constructs a <code>$join</code> query.</p>
+
+<p>Joins this collection with another one by the value of <code>_id</code> field.</p>
+</div><h4 id='method.add_to_set' class="method"><span id='add_to_set.v' class='invisible'><code>pub fn <a href='#method.add_to_set' class='fnname'>add_to_set</a>&lt;S:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;, V:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="enum" href="../../ejdb/bson/enum.Bson.html" title="enum ejdb::bson::Bson">Bson</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;key: S, <br>&nbsp;&nbsp;&nbsp;&nbsp;value: V<br>) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#347-349' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Constructs an <code>$addToSet</code> update query.</p>
+
+<p>Adds <code>value</code> to the set (represented as a BSON array) at the field <code>key</code>.</p>
+</div><h4 id='method.add_to_set_all' class="method"><span id='add_to_set_all.v' class='invisible'><code>pub fn <a href='#method.add_to_set_all' class='fnname'>add_to_set_all</a>&lt;S, I&gt;(self, key: S, values: I) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a> <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;S: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;I: <a class="trait" href="https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html" title="trait core::iter::traits::IntoIterator">IntoIterator</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;I::<a class="type" href="https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html#associatedtype.Item" title="type core::iter::traits::IntoIterator::Item">Item</a>: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="enum" href="../../ejdb/bson/enum.Bson.html" title="enum ejdb::bson::Bson">Bson</a>&gt;,&nbsp;</span></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#354-359' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Constructs a multi-valued <code>$addToSet</code> update query.</p>
+
+<p>Adds all items from <code>values</code> to the set (represented as a BSON array) at the field <code>key</code>.</p>
+</div><h4 id='method.unset' class="method"><span id='unset.v' class='invisible'><code>pub fn <a href='#method.unset' class='fnname'>unset</a>&lt;S:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;&gt;(self, key: S) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#364-366' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Constructs an <code>$unset</code> update query.</p>
+
+<p>Removes the field <code>key</code>.</p>
+</div><h4 id='method.inc' class="method"><span id='inc.v' class='invisible'><code>pub fn <a href='#method.inc' class='fnname'>inc</a>&lt;S:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;, D:&nbsp;BsonNumber&gt;(self, key: S, delta: D) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#372-374' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Constructs an <code>$inc</code> update query.</p>
+
+<p>Increments the numerical value in field <code>key</code> by <code>delta</code>. Use negative <code>delta</code> for
+decrements.</p>
+</div><h4 id='method.drop_all' class="method"><span id='drop_all.v' class='invisible'><code>pub fn <a href='#method.drop_all' class='fnname'>drop_all</a>(self) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#379-382' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Constructs a <code>$dropall</code> update query.</p>
+
+<p>Removes all records from the collection.</p>
+</div><h4 id='method.set' class="method"><span id='set.v' class='invisible'><code>pub fn <a href='#method.set' class='fnname'>set</a>&lt;S:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;, V:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="enum" href="../../ejdb/bson/enum.Bson.html" title="enum ejdb::bson::Bson">Bson</a>&gt;&gt;(self, key: S, value: V) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#388-390' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Constructs a <code>$set</code> update query for a single field.</p>
+
+<p>Sets the field <code>key</code> to the value <code>value</code> in all matched records. Multiple sequential
+<code>set()</code>s will be merged.</p>
+</div><h4 id='method.set_many' class="method"><span id='set_many.v' class='invisible'><code>pub fn <a href='#method.set_many' class='fnname'>set_many</a>&lt;D:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="type" href="../../ejdb/bson/type.Document.html" title="type ejdb::bson::Document">Document</a>&gt;&gt;(self, document: D) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#396-399' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Constructs an entire <code>$set</code> update query.</p>
+
+<p>Sets all fields from the <code>document</code> to their respective values in all matched records.
+Overwrites all previous <code>set()</code> and <code>set_many()</code> invocations.</p>
+</div><h4 id='method.upsert' class="method"><span id='upsert.v' class='invisible'><code>pub fn <a href='#method.upsert' class='fnname'>upsert</a>&lt;S:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;, V:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="enum" href="../../ejdb/bson/enum.Bson.html" title="enum ejdb::bson::Bson">Bson</a>&gt;&gt;(self, key: S, value: V) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#405-407' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Constructs an <code>$upsert</code> update query for a single field.</p>
+
+<p>Like <code>set()</code>, but will insert new record if none matched. Multiple sequential
+<code>set()</code>s will be merged.</p>
+</div><h4 id='method.upsert_many' class="method"><span id='upsert_many.v' class='invisible'><code>pub fn <a href='#method.upsert_many' class='fnname'>upsert_many</a>&lt;D:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="type" href="../../ejdb/bson/type.Document.html" title="type ejdb::bson::Document">Document</a>&gt;&gt;(self, document: D) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#413-416' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Constructs an entire <code>$upsert</code> update query.</p>
+
+<p>Like <code>set()</code>, but will insert new record if none matched. Overwrites all previous
+<code>upsert()</code> and <code>upsert_field()</code> calls.</p>
+</div><h4 id='method.pull' class="method"><span id='pull.v' class='invisible'><code>pub fn <a href='#method.pull' class='fnname'>pull</a>&lt;S:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;, V:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="enum" href="../../ejdb/bson/enum.Bson.html" title="enum ejdb::bson::Bson">Bson</a>&gt;&gt;(self, key: S, value: V) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#421-423' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Constructs a <code>$pull</code> update query.</p>
+
+<p>Removes the <code>value</code> from an array at the field <code>key</code> in all matched records.</p>
+</div><h4 id='method.pull_all' class="method"><span id='pull_all.v' class='invisible'><code>pub fn <a href='#method.pull_all' class='fnname'>pull_all</a>&lt;S, I&gt;(self, key: S, values: I) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a> <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;S: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;I: <a class="trait" href="https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html" title="trait core::iter::traits::IntoIterator">IntoIterator</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;I::<a class="type" href="https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html#associatedtype.Item" title="type core::iter::traits::IntoIterator::Item">Item</a>: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="enum" href="../../ejdb/bson/enum.Bson.html" title="enum ejdb::bson::Bson">Bson</a>&gt;,&nbsp;</span></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#429-434' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Constructs a multiple-valued <code>$pull</code> update query.</p>
+
+<p>Removes all values from <code>values</code> from an array at the field <code>key</code> in all matched records.
+Multiple <code>push_all()</code> calls will be merged.</p>
+</div><h4 id='method.push' class="method"><span id='push.v' class='invisible'><code>pub fn <a href='#method.push' class='fnname'>push</a>&lt;S:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;, V:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="enum" href="../../ejdb/bson/enum.Bson.html" title="enum ejdb::bson::Bson">Bson</a>&gt;&gt;(self, key: S, value: V) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#440-442' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Constructs a <code>$push</code> update query.</p>
+
+<p>Appends the provided <code>value</code> to an array field <code>key</code> in all matched records. Multiple
+<code>push()</code> calls will be merged.</p>
+</div><h4 id='method.push_all' class="method"><span id='push_all.v' class='invisible'><code>pub fn <a href='#method.push_all' class='fnname'>push_all</a>&lt;S, I&gt;(self, key: S, values: I) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a> <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;S: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;I: <a class="trait" href="https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html" title="trait core::iter::traits::IntoIterator">IntoIterator</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;I::<a class="type" href="https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html#associatedtype.Item" title="type core::iter::traits::IntoIterator::Item">Item</a>: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="enum" href="../../ejdb/bson/enum.Bson.html" title="enum ejdb::bson::Bson">Bson</a>&gt;,&nbsp;</span></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#448-453' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Constructs a multiple-valued <code>$push</code> update query.</p>
+
+<p>Appends all values from <code>values</code> to an array field <code>key</code> in all matched records. Multiple
+<code>push_all()</code> calls will be merged.</p>
+</div><h4 id='method.rename' class="method"><span id='rename.v' class='invisible'><code>pub fn <a href='#method.rename' class='fnname'>rename</a>&lt;S1:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;, S2:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;key: S1, <br>&nbsp;&nbsp;&nbsp;&nbsp;new_key: S2<br>) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#459-461' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Constructs a <code>$rename</code> update query.</p>
+
+<p>Renames field <code>key</code> to <code>new_key</code> in all matched records. Multiple <code>rename()</code> calls will
+be merged.</p>
+</div><h4 id='method.slice' class="method"><span id='slice.v' class='invisible'><code>pub fn <a href='#method.slice' class='fnname'>slice</a>&lt;S:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;&gt;(self, key: S, limit: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#467-469' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Constructs a limit-only <code>$slice</code> query.</p>
+
+<p>Limits the number of array items of the field <code>key</code> in the returned result. <code>limit</code> is
+the number of elements which will be taken from the beginning of the array.</p>
+</div><h4 id='method.slice_with_offset' class="method"><span id='slice_with_offset.v' class='invisible'><code>pub fn <a href='#method.slice_with_offset' class='fnname'>slice_with_offset</a>&lt;S:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;key: S, <br>&nbsp;&nbsp;&nbsp;&nbsp;offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;limit: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a><br>) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#475-479' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Constructs a full <code>$slice</code> query.</p>
+
+<p>Limits the number of array items of the field <code>key</code> in the returned result. <code>limit</code> is
+the maximum number of elements to be returned starting from <code>offset</code>.</p>
+</div><h4 id='method.into_bson' class="method"><span id='into_bson.v' class='invisible'><code>pub fn <a href='#method.into_bson' class='fnname'>into_bson</a>(self) -&gt; <a class="type" href="../../ejdb/bson/type.Document.html" title="type ejdb::bson::Document">Document</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#483-485' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Converts this query to a BSON document.</p>
+</div><h4 id='method.as_bson' class="method"><span id='as_bson.v' class='invisible'><code>pub fn <a href='#method.as_bson' class='fnname'>as_bson</a>(&amp;self) -&gt; &amp;<a class="type" href="../../ejdb/bson/type.Document.html" title="type ejdb::bson::Document">Document</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#489-491' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Returns a reference to this query as a BSON document.</p>
+</div><h4 id='method.as_bson_mut' class="method"><span id='as_bson_mut.v' class='invisible'><code>pub fn <a href='#method.as_bson_mut' class='fnname'>as_bson_mut</a>(&amp;mut self) -&gt; &amp;mut <a class="type" href="../../ejdb/bson/type.Document.html" title="type ejdb::bson::Document">Document</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#497-499' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Returns a mutable reference to this query as a BSON document.</p>
+
+<p>Be careful when modifying the document directly because it may lead to invalid queries.</p>
+</div></div>
+            <h2 id='implementations' class='small-section-header'>
+              Trait Implementations<a href='#implementations' class='anchor'></a>
+            </h2>
+        <h3 id='impl-Clone' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a> for <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code><a href='#impl-Clone' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#239' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class="method"><span id='clone.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#239' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
+</div><h4 id='method.clone_from' class="method"><span id='clone_from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self)</code></span><span class='out-of-band'><div class='ghost'></div><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div><a class='srclink' href='https://doc.rust-lang.org/nightly/src/core/clone.rs.html#112-114' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
+</div></div><h3 id='impl-PartialEq' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html" title="trait core::cmp::PartialEq">PartialEq</a> for <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code><a href='#impl-PartialEq' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#239' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.eq' class="method"><span id='eq.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq' class='fnname'>eq</a>(&amp;self, __arg_0: &amp;<a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#239' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>This method tests for <code>self</code> and <code>other</code> values to be equal, and is used by <code>==</code>. <a href="https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq">Read more</a></p>
+</div><h4 id='method.ne' class="method"><span id='ne.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.ne' class='fnname'>ne</a>(&amp;self, __arg_0: &amp;<a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#239' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>This method tests for <code>!=</code>.</p>
+</div></div><h3 id='impl-Debug' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html" title="trait core::fmt::Debug">Debug</a> for <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code><a href='#impl-Debug' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#239' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class="method"><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html" title="struct core::fmt::Formatter">Formatter</a>) -&gt; <a class="type" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html" title="type core::fmt::Result">Result</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#239' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter. <a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt">Read more</a></p>
+</div></div><h3 id='impl-From%3CDocument%3E' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="trait core::convert::From">From</a>&lt;<a class="type" href="../../ejdb/bson/type.Document.html" title="type ejdb::bson::Document">Document</a>&gt; for <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code><a href='#impl-From%3CDocument%3E' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#502-509' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.from' class="method"><span id='from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from' class='fnname'>from</a>(document: <a class="type" href="../../ejdb/bson/type.Document.html" title="type ejdb::bson::Document">Document</a>) -&gt; <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#504-508' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Performs the conversion.</p>
+</div></div><h3 id='impl-Into%3CDocument%3E' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html" title="trait core::convert::Into">Into</a>&lt;<a class="type" href="../../ejdb/bson/type.Document.html" title="type ejdb::bson::Document">Document</a>&gt; for <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code><a href='#impl-Into%3CDocument%3E' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#511-514' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.into' class="method"><span id='into.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/convert/trait.Into.html#tymethod.into' class='fnname'>into</a>(self) -&gt; <a class="type" href="../../ejdb/bson/type.Document.html" title="type ejdb::bson::Document">Document</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#513' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Performs the conversion.</p>
+</div></div><h3 id='impl-Deref' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/deref/trait.Deref.html" title="trait core::ops::deref::Deref">Deref</a> for <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code><a href='#impl-Deref' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#516-521' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='associatedtype.Target' class="type"><span id='Target.t' class='invisible'><code>type <a href='https://doc.rust-lang.org/nightly/core/ops/deref/trait.Deref.html#associatedtype.Target' class="type">Target</a> = <a class="type" href="../../ejdb/bson/type.Document.html" title="type ejdb::bson::Document">Document</a></code></span></h4>
+<div class='docblock'><p>The resulting type after dereferencing.</p>
+</div><h4 id='method.deref' class="method"><span id='deref.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/deref/trait.Deref.html#tymethod.deref' class='fnname'>deref</a>(&amp;self) -&gt; &amp;<a class="type" href="../../ejdb/bson/type.Document.html" title="type ejdb::bson::Document">Document</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#520' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Dereferences the value.</p>
+</div></div><h3 id='impl-DerefMut' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/deref/trait.DerefMut.html" title="trait core::ops::deref::DerefMut">DerefMut</a> for <a class="struct" href="../../ejdb/query/struct.Query.html" title="struct ejdb::query::Query">Query</a></code><a href='#impl-DerefMut' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#523-526' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.deref_mut' class="method"><span id='deref_mut.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/deref/trait.DerefMut.html#tymethod.deref_mut' class='fnname'>deref_mut</a>(&amp;mut self) -&gt; &amp;mut <a class="type" href="../../ejdb/bson/type.Document.html" title="type ejdb::bson::Document">Document</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/ejdb/database/query.rs.html#525' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Mutably dereferences the value.</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>↑</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>↓</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt style="width:31px;">+ / -</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "ejdb";
+    </script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>
