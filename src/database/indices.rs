@@ -157,7 +157,7 @@ impl<'coll, 'db: 'coll> Index<'coll, 'db> {
 
     fn execute(self) -> Result<()> {
         let flags = self.flags.expect("index flags are not defined"); // should always unwrap
-        let key = try!(CString::new(self.key).map_err(|_| "invalid key"));
+        let key = CString::new(self.key).map_err(|_| "invalid key")?;
         let result =
             unsafe { ejdb_sys::ejdbsetindex(self.coll.coll, key.as_ptr(), flags as c_int) };
         if result {

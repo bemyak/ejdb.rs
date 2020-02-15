@@ -46,7 +46,7 @@ impl Database {
         if doc.is_null() {
             return self.last_error("cannot load metadata");
         } else {
-            let bson_doc = unsafe { try!(EjdbBsonDocument::from_ptr(doc).to_bson()) };
+            let bson_doc = unsafe { EjdbBsonDocument::from_ptr(doc).to_bson()? };
             Ok(DatabaseMetadata(bson_doc))
         }
     }

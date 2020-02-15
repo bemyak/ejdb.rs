@@ -25,8 +25,8 @@ impl error::Error for PartialSave {
     fn description(&self) -> &str {
         "save operation completed partially"
     }
-    fn cause(&self) -> Option<&error::Error> {
-        Some(&*self.cause)
+    fn cause(&self) -> Option<&dyn error::Error> {
+        Some(self.cause.as_ref())
     }
 }
 
@@ -36,12 +36,12 @@ impl fmt::Display for OidHexDisplay {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         static CHARS: &'static [u8] = b"0123456789abcdef";
         for &byte in &self.0.bytes() {
-            try!(write!(
+            write!(
                 f,
                 "{}{}",
                 CHARS[(byte >> 4) as usize] as char,
                 CHARS[(byte & 0xf) as usize] as char
-            ));
+            )?;
         }
         Ok(())
     }

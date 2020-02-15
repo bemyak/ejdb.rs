@@ -159,7 +159,7 @@ impl Database {
             return Err("cannot create database".into());
         }
 
-        let p = try!(CString::new(path).map_err(|_| "invalid path specified"));
+        let p = CString::new(path).map_err(|_| "invalid path specified")?;
 
         if unsafe { ejdb_sys::ejdbopen(ejdb, p.as_ptr(), open_mode.bits() as c_int) } {
             Ok(Database(ejdb))
@@ -227,7 +227,7 @@ impl Database {
     /// }
     /// ```
     pub fn get_collection<S: Into<Vec<u8>>>(&self, name: S) -> Result<Option<Collection>> {
-        let p = try!(CString::new(name).map_err(|_| "invalid collection name"));
+        let p = CString::new(name).map_err(|_| "invalid collection name")?;
         let coll = unsafe { ejdb_sys::ejdbgetcoll(self.0, p.as_ptr()) };
         if coll.is_null() {
             match self.last_error_msg() {
@@ -269,7 +269,7 @@ impl Database {
         name: S,
         options: CollectionOptions,
     ) -> Result<Collection> {
-        let p = try!(CString::new(name).map_err(|_| "invalid collection name"));
+        let p = CString::new(name).map_err(|_| "invalid collection name")?;
         let mut ejcollopts = ejdb_sys::EJCOLLOPTS {
             large: options.large,
             compressed: options.compressed,
@@ -324,7 +324,7 @@ impl Database {
     /// db.drop_collection("some_collection", true).unwrap();
     /// ```
     pub fn drop_collection<S: Into<Vec<u8>>>(&self, name: S, prune: bool) -> Result<()> {
-        let p = try!(CString::new(name).map_err(|_| "invalid collection name"));
+        let p = CString::new(name).map_err(|_| "invalid collection name")?;
         if unsafe { ejdb_sys::ejdbrmcoll(self.0, p.as_ptr(), prune) } {
             Ok(())
         } else {
@@ -508,7 +508,7 @@ impl<'db> Collection<'db> {
     /// # }
     /// ```
     pub fn save<D: Borrow<bson::Document>>(&self, doc: D) -> Result<oid::ObjectId> {
-        let mut ejdb_doc = try!(EjdbBsonDocument::from_bson(doc.borrow()));
+        let mut ejdb_doc = EjdbBsonDocument::from_bson(doc.borrow())?;
         let mut out_id = EjdbObjectId::empty();
 
         if unsafe { ejdb_sys::ejdbsavebson(self.coll, ejdb_doc.as_raw_mut(), out_id.as_raw_mut()) }
@@ -657,7 +657,7 @@ pub struct PreparedQuery<'coll, 'db: 'coll, 'out, Q, H> {
     coll: &'coll Collection<'db>,
     query: Q,
     hints: H,
-    log_out: Option<&'out mut io::Write>,
+    log_out: Option<&'out mut dyn io::Write>,
 }
 
 impl<'coll, 'db, 'out, Q, H> PreparedQuery<'coll, 'db, 'out, Q, H>
@@ -693,7 +693,7 @@ where
     /// ```
     pub fn log_output<'o>(
         self,
-        target: &'o mut (io::Write + 'o),
+        target: &'o mut (dyn io::Write + 'o),
     ) -> PreparedQuery<'coll, 'db, 'o, Q, H> {
         PreparedQuery {
             coll: self.coll,
@@ -840,7 +840,7 @@ where
         let hints = self.hints.borrow().as_bson();
 
         let mut query_doc = Vec::new();
-        try!(bson::encode_document(&mut query_doc, query));
+        bson::encode_document(&mut query_doc, query)?;
 
         let query =
             unsafe { ejdb_sys::ejdbcreatequery2(self.coll.db.0, query_doc.as_ptr() as *const _) };
@@ -861,7 +861,7 @@ where
 
         if !hints.is_empty() {
             query_doc.clear();
-            try!(bson::encode_document(&mut query_doc, hints));
+            bson::encode_document(&mut query_doc, hints)?;
 
             let new_query = unsafe {
                 ejdb_sys::ejdbqueryhints(self.coll.db.0, query.0, query_doc.as_ptr() as *const _)
@@ -891,7 +891,7 @@ where
         // dump the log to the output
         match (log, self.log_out) {
             (Some(log), Some(log_out)) => {
-                try!(log_out.write(&log));
+                log_out.write(&log)?;
             }
             _ => {}
         }
